@@ -46,16 +46,16 @@
           <mat-icon>
             group
           </mat-icon>
-          <span class="ml1">{{ session.users.length }} attendees</span>
+          <span class="ml1" data-testid="attendees-count">{{ session.users.length }} attendees</span>
         </div>
         <div fxLayoutAlign="start center">
           <mat-icon>
             calendar_month
           </mat-icon>
-          <span class="ml1">{{ session.date | date: 'longDate'}}</span>
+          <span class="ml1" data-testid="session-date">{{ session.date | date: 'longDate'}}</span>
         </div>
       </div>
-      <div class="description">
+      <div class="description" data-testid="session-description">
         <p>Description:</p>
         {{ session.description }}
         <br>
