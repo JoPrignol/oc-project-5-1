@@ -9,8 +9,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@jest/globals';
 import { SessionService } from 'src/app/services/session.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { of } from "rxjs";
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { first, of } from "rxjs";
+import { NgZone } from '@angular/core';
 
 import { LoginComponent } from './login.component';
 import { AuthService } from '../../services/auth.service';
@@ -25,18 +26,8 @@ describe('LoginComponent', () => {
   let authService: AuthService;
   let sessionService: SessionService;
   let router: Router;
-
-  const mockAuthService = {
-    login: jest.fn(),
-  };
-
-  const mockSessionService = {
-    logIn: jest.fn(),
-  };
-
-  const mockRouter = {
-    navigate: jest.fn(),
-  };
+  let httpMock: HttpTestingController;
+  let ngZone: NgZone;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -52,9 +43,8 @@ describe('LoginComponent', () => {
         ReactiveFormsModule
       ],
       providers: [
-        { provide: AuthService, useValue: mockAuthService },
-        { provide: SessionService, useValue: mockSessionService },
-        { provide: Router, useValue: mockRouter }
+        AuthService,
+        SessionService
       ],
     })
       .compileComponents();
@@ -63,9 +53,15 @@ describe('LoginComponent', () => {
     authService = TestBed.inject(AuthService);
     sessionService = TestBed.inject(SessionService);
     router = TestBed.inject(Router);
+    httpMock = TestBed.inject(HttpTestingController);
+    ngZone = TestBed.inject(NgZone);
 
     fixture.detectChanges();
 
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('should create', () => {
@@ -78,14 +74,27 @@ describe('LoginComponent', () => {
       password: 'password123!',
     }
     const sessionInformation = { admin: true, id: 1 };
-    jest.spyOn(authService, 'login').mockReturnValue(of({ admin: true, id: 1 } as SessionInformation));
+
+    const logInSpy = jest.spyOn(sessionService, 'logIn');
+    const navigateSpy = jest.spyOn(router, 'navigate').mockResolvedValue(true);
 
     component.form.setValue(loginRequest);
-    component.submit();
 
-    expect(authService.login).toHaveBeenCalledWith(loginRequest);
-    expect(sessionService.logIn).toHaveBeenCalledWith(sessionInformation);
-    expect(router.navigate).toHaveBeenCalledWith(['/sessions']);
+    ngZone.run(() => {
+      component.submit();
+    });
+
+    const req = httpMock.expectOne('api/auth/login');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(loginRequest);
+
+    req.flush(sessionInformation);
+
+    expect(logInSpy).toHaveBeenCalledWith(sessionInformation);
+    expect(navigateSpy).toHaveBeenCalledWith(['/sessions']);
+
+    logInSpy.mockRestore();
+
   });
 
   it('should set onError to true when password field is not filled', () => {
@@ -95,12 +104,19 @@ describe('LoginComponent', () => {
     }
 
     const mockError = { message: 'Invalid credentials' };
-    jest.spyOn(authService, 'login').mockReturnValue(throwError(() => mockError));
 
     component.form.setValue(loginRequest);
-    component.submit();
 
-    expect(authService.login).toHaveBeenCalledWith(loginRequest);
+    ngZone.run(() => {
+      component.submit();
+    });
+
+    const req = httpMock.expectOne('api/auth/login');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(loginRequest);
+
+    req.flush(mockError, { status: 400, statusText: 'Bad Request' });
+
     expect(component.onError).toBe(true);
   });
 });
