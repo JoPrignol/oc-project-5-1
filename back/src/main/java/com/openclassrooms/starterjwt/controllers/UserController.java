@@ -20,7 +20,7 @@ public class UserController {
 
 
     public UserController(UserService userService,
-                             UserMapper userMapper) {
+                            UserMapper userMapper) {
         this.userMapper = userMapper;
         this.userService = userService;
     }
