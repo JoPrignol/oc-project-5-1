@@ -27,6 +27,86 @@ describe('Session details spec', () => {
     //       // Simulation d'une réponse vide
     //       []).as('session')
 
+
+    //       cy.intercept('GET', '**/teacher', {
+    //         statusCode: 200,
+    //         body: [
+    //           {
+    //               "id": 1,
+    //               "lastName": "DELAHAYE",
+    //               "firstName": "Margot",
+    //               "createdAt": "2024-11-22T17:18:55",
+    //               "updatedAt": "2024-11-22T17:18:55"
+    //           },
+    //           {
+    //               "id": 2,
+    //               "lastName": "THIERCELIN",
+    //               "firstName": "Hélène",
+    //               "createdAt": "2024-11-22T17:18:55",
+    //               "updatedAt": "2024-11-22T17:18:55"
+    //           }
+    //         ]
+    //       }).as('getTeachers');
+
+    //       cy.intercept('GET', '/api/session', {
+    //         statusCode: 200,
+    //         body: [
+    //           {
+    //             id: 123,
+    //             name: 'Test Session',
+    //             date: '2024-12-27',
+    //             teacher: {
+    //               id: 1,
+    //               lastName: 'DELAHAYE',
+    //               firstName: 'Margot',
+    //             },
+    //             description: 'Test description test.',
+    //           },
+    //         ],
+    //       }).as('getSessions');
+
+    //       cy.intercept('POST', '/api/session', {
+    //         statusCode: 201, // 201 Created
+    //         body: {
+    //           id: 124,
+    //           name: 'Test Session',
+    //           date: '2024-12-27',
+    //           teacher: {
+    //             id: 1,
+    //             lastName: 'DELAHAYE',
+    //             firstName: 'Margot',
+    //           },
+    //           description: 'Test description test.',
+    //         },
+    //       }).as('createSession');
+
+    //       cy.intercept('GET', '**/session/123', {
+    //         statusCode: 200,
+    //         body: [
+    //           {
+    //             id: 123,
+    //             name: 'Test Session',
+    //             date: '2024-12-27',
+    //             teacher_id: 1,
+    //             description: 'Test description test.',
+    //           },
+    //         ],
+    //       }).as('getSession');
+
+    //       cy.intercept('GET', '**/teacher/1', {
+    //         statusCode: 200,
+    //         body:
+    //           {
+    //               "id": 1,
+    //               "lastName": "DELAHAYE",
+    //               "firstName": "Margot",
+    //               "createdAt": "2024-11-22T17:18:55",
+    //               "updatedAt": "2024-11-22T17:18:55"
+    //           }
+    //       }).as('getTeacher');
+
+
+
     // //***
 
     cy.get('input[formControlName=email]').type("yoga@studio.com")
@@ -36,28 +116,10 @@ describe('Session details spec', () => {
 
   it('Create modify and delete a session', () => {
 
-
     cy.get('[data-testid="create-button"]').should('be.visible').then(() => {
       cy.log('Bouton de création trouvé');
     });
     cy.screenshot();
-
-
-
-    // cy.intercept('GET', '/sessions/create', {
-    //   body: [{
-    //     id: 1,
-    //     lastName: 'DELAHAYE',
-    //     firstName: 'Margot',
-    //   },
-    //   {
-    //     id: 2,
-    //     lastName: 'THIERCELIN',
-    //     firstName: 'Hélène',
-    //   }
-    // ]
-
-    // });
 
 
     // Créer une session test
@@ -68,6 +130,8 @@ describe('Session details spec', () => {
 
     // Vérifier qu'on est bien sur la page /sessions/create
     cy.url().should('include', '/create')
+
+        // cy.wait('@getTeachers');
 
     // Vérifier que le bouton de validation est désactivé en l'absence de remplissage du formulaire
     cy.get('button[type="submit"]').should('be.disabled');
@@ -85,8 +149,12 @@ describe('Session details spec', () => {
     // Ajouter la description
     cy.get('textarea[formControlName="description"]').type('Test description test.');
 
+        // cy.wait('@getSessions');
+
     // Valider le formulaire
     cy.get('button[type="submit"]').click();
+
+        // cy.wait('@createSession');
 
     // Vérifier que la session contient bien les bons détails
     cy.get('[data-testid="session-name"]').should('contain', 'Test Session');
@@ -97,6 +165,11 @@ describe('Session details spec', () => {
 
     // Modifier la session de test
     cy.get('[data-testid="edit-button"]').first().click();
+
+        // cy.url().should('include', '/sessions/update/123');
+        // cy.wait('@getSession');
+        // // cy.wait('@getTeacher');
+        // cy.get('input[formControlName="name"]').should('be.visible');
 
     // Nomer la session de test
     cy.get('input[formControlName="name"]').clear().type('Test Session Modified');

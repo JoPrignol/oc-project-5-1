@@ -43,4 +43,23 @@ describe('Login spec', () => {
     // Vérification de la redirection vers la page /sessions
     cy.url().should('include', '/sessions')
   })
+
+
+  it('login not successful', () => {
+    cy.visit('/login')
+
+    cy.get('input[formControlName=email]').type("random_unregistered@email.com")
+    cy.get('input[formControlName=password]').type(`${"Test1234!"}{enter}{enter}`)
+
+    cy.get('[data-testid="error-login"]').should('be.visible')
+  });
+
+
+  it('should redirect to login if user is not logged in', () => {
+
+    cy.visit('/sessions');
+
+    cy.url().should('include', '/login');
+  });
+
 });

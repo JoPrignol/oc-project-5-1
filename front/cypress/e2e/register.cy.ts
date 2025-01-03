@@ -49,5 +49,21 @@ describe('Register spec', () => {
       cy.get('input[formControlName=password]').type(`${"password123!"}{enter}{enter}`)
 
       cy.url().should('include', '/sessions')
+
+      cy.get('[data-testid="account-button"]').click();
+
+      cy.url().should('include', '/me')
+
+      cy.get('[data-testid="user-name"]').should('contain', 'Name: Test USER');
+      cy.get('[data-testid="user-email"]').should('contain', `${mail}`);
+
+      cy.get('[data-testid="back-button"]').click();
+      cy.url().should('not.include', '/me');
+
+      cy.get('[data-testid="account-button"]').click();
+
+      cy.get('[data-testid="delete-account-button"]').click();
+
+      cy.url().should('include', '/')
   });
 });
