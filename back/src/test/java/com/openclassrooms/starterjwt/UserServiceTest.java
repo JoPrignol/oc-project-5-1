@@ -67,5 +67,5 @@ class UserServiceTest {
 
     // Vérifie que findById a été appelé une fois
     verify(userRepository, times(1)).findById(1L);
-}
+  }
 }
