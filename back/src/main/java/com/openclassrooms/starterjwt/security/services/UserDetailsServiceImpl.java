@@ -13,7 +13,9 @@ import com.openclassrooms.starterjwt.repository.UserRepository;
 public class UserDetailsServiceImpl implements UserDetailsService {
   UserRepository userRepository;
 
-  UserDetailsServiceImpl(UserRepository userRepository) {
+  // // Passé en public pour pouvoir être testé
+  // public UserDetailsServiceImpl(UserRepository userRepository) {
+    UserDetailsServiceImpl(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
 
