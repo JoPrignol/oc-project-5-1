@@ -169,5 +169,46 @@ class SessionServiceTest {
         verify(userRepository, times(1)).findById(userId);
     }
 
+    @Test
+    void noLongerParticipate_ShouldThrowNotFoundException_WhenSessionIsNull() {
+        Long sessionId = 1L;
+        Long userId = 1L;
 
+        // Simuler l'absence de session dans le repository
+        when(sessionRepository.findById(sessionId)).thenReturn(Optional.empty());
+
+        // Vérification que l'exception NotFoundException est lancée
+        assertThrows(NotFoundException.class, () -> sessionService.noLongerParticipate(sessionId, userId));
+
+        // Vérifier que la méthode findById a été appelée une seule fois
+        verify(sessionRepository, times(1)).findById(sessionId);
+    }
+
+    @Test
+    void noLongerParticipate_ShouldThrowBadRequestException_WhenUserDoesNotParticipate() {
+        Long sessionId = 1L;
+        Long userId = 1L;
+
+        // Création de l'utilisateur et de la session
+        User testUser = new User();
+        testUser.setId(userId);
+
+        Session testSession = new Session();
+        testSession.setId(sessionId);
+
+        // Initialiser la liste des utilisateurs de la session
+        testSession.setUsers(new ArrayList<>());
+
+        // Simuler la session existante dans le repository
+        when(sessionRepository.findById(sessionId)).thenReturn(Optional.of(testSession));
+
+        // Vérification que la BadRequestException est lancée
+        assertThrows(BadRequestException.class, () -> sessionService.noLongerParticipate(sessionId, userId));
+
+        // Vérification que la méthode save n'est pas appelée puisque l'utilisateur ne peut pas être retiré
+        verify(sessionRepository, times(0)).save(testSession);
+
+        // Vérification que la méthode findById a été appelée une seule fois
+        verify(sessionRepository, times(1)).findById(sessionId);
+    }
 }
