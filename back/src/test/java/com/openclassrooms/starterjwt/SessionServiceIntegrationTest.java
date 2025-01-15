@@ -36,4 +36,40 @@ public class SessionServiceIntegrationTest {
     assertEquals("Margot", yogaSession.getTeacher().getFirstName(), "Wrong teacher name");
     assertEquals("DELAHAYE", yogaSession.getTeacher().getLastName(), "Wrong teacher last name");
   }
+
+  @Test
+  void findAll_ShouldReturnAllSessions(){
+    // Récupération de toutes les sessions
+    Iterable<Session> sessions = sessionService.findAll();
+
+    // Vérification du nombre de sessions
+    assertEquals(2, ((java.util.Collection<?>) sessions).size(), "Incorrect number of sessions");
+
+    // Vérification des propriétés de la première session
+    Session firstSession = ((java.util.List<Session>) sessions).get(0);
+    assertEquals("Yoga", firstSession.getName(), "Incorrect session name");
+    assertEquals("Yoga session", firstSession.getDescription(), "Incorrect description");
+
+    // Vérification du professeur de la première session
+    assertEquals("Margot", firstSession.getTeacher().getFirstName(), "Wrong teacher name");
+    assertEquals("DELAHAYE", firstSession.getTeacher().getLastName(), "Wrong teacher last name");
+
+    // Vérification des propriétés de la deuxième session
+    Session secondSession = ((java.util.List<Session>) sessions).get(1);
+    assertEquals("Pilates", secondSession.getName(), "Incorrect session name");
+    assertEquals("Pilates session", secondSession.getDescription(), "Incorrect description");
+
+    // Vérification du professeur de la deuxième session
+    assertEquals("Hélène", secondSession.getTeacher().getFirstName(), "Wrong teacher name");
+    assertEquals("THIERCELIN", secondSession.getTeacher().getLastName(), "Wrong teacher last name");
+  }
+
+  @Test
+  void delete_ShouldDeleteSession(){
+    // Suppression de la session
+    sessionService.delete(2L);
+
+    // Vérification que la session n'existe plus
+    assertEquals(1, ((java.util.Collection<?>) sessionRepository.findAll()).size(), "Incorrect number of sessions");
+  }
 }
