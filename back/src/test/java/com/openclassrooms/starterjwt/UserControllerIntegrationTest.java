@@ -82,4 +82,29 @@ public class UserControllerIntegrationTest {
     //     assertFalse(userRepository.findById(3L).isPresent());
     // }
 
+    @Test
+    @WithMockUser(username = "test@user.com", roles = "USER")
+    void findById_ShouldThrowBadRequest_WhenIdIsNotValid() throws Exception {
+        // Envoi de la requête GET avec un ID invalide
+        mockMvc.perform(get("/api/user/invalid"))
+              .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @WithMockUser(username = "test@user.com", roles = "USER")
+    void save_ShouldThrowBadRequest_WhenIdIsNotValid() throws Exception {
+        // Envoi de la requête DELETE avec un ID invalide
+        mockMvc.perform(delete("/api/user/invalid"))
+              .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @WithMockUser(username = "other@user.com", roles = "USER")
+    void save_ShouldThrowUnauthorized_WhenUserIsNotOwner() throws Exception {
+        // Simulation d'un utilisateur qui tente de supprimer un autre utilisateur
+        mockMvc.perform(delete("/api/user/1"))
+              .andExpect(status().isUnauthorized());
+    }
+
+
 }

@@ -9,10 +9,11 @@ import com.openclassrooms.starterjwt.models.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-  static Optional<User> findByEmail(String email) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'findByEmail'");
-  }
+  Optional<User> findByEmail(String email);
+  // {
+  //   // TODO Auto-generated method stub
+  //   throw new UnsupportedOperationException("Unimplemented method 'findByEmail'");
+  // }
 
   Boolean existsByEmail(String email);
 }

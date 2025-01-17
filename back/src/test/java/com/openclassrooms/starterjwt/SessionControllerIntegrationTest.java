@@ -1,5 +1,9 @@
 package com.openclassrooms.starterjwt;
 
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -8,17 +12,12 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Date;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openclassrooms.starterjwt.dto.SessionDto;
@@ -195,6 +194,49 @@ public class SessionControllerIntegrationTest {
         // Vérifier que l'utilisateur a bien été retiré de la session
         Session sessionAfter = sessionRepository.findById(sessionId).orElseThrow();
         assertFalse(sessionAfter.getUsers().contains(user));
+    }
+
+    @Test
+    @WithMockUser(username = "test@user.com", roles = "USER")
+    void findById_ShouldThrowBadRequest_WhenIdIsNotValid() throws Exception {
+        // Envoi de la requête GET
+        mockMvc.perform(get("/api/session/invalid"))
+              .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @WithMockUser(username = "test@user.com", roles = "USER")
+    void update_ShouldThrowBadRequest_WhenIdIsNotValid() throws Exception {
+        // Envoi de la requête PUT avec un ID invalide et un corps JSON pour SessionDto
+        mockMvc.perform(put("/api/session/invalid")
+                .contentType("application/json")
+                .content("{ \"name\": \"Session 1\", \"description\": \"Description 1\" }"))
+              .andExpect(status().isBadRequest());
+    }
+
+
+    @Test
+    @WithMockUser(username = "test@user.com", roles = "USER")
+    void save_ShouldThrowBadRequest_WhenIdIsNotValid() throws Exception {
+        // Envoi de la requête DELETE avec un ID invalide
+        mockMvc.perform(delete("/api/session/invalid"))
+              .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @WithMockUser(username = "test@user.com", roles = "USER")
+    void participate_ShouldThrowBadRequest_WhenIdsAreNotValid() throws Exception {
+        // Envoi de la requête POST avec des ID invalides
+        mockMvc.perform(post("/api/session/invalid/participate/invalidUserId"))
+              .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @WithMockUser(username = "test@user.com", roles = "USER")
+    void noLongerParticipate_ShouldThrowBadRequest_WhenIdsAreNotValid() throws Exception {
+        // Envoi de la requête DELETE avec des ID invalides
+        mockMvc.perform(delete("/api/session/invalid/participate/invalidUserId"))
+              .andExpect(status().isBadRequest());
     }
 
 
