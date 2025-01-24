@@ -13,7 +13,6 @@ export default defineConfig({
       require('@cypress/code-coverage/task')(on, config)
       require('./cypress/plugins/index.ts').default(on, config)
       return config
-
     },
     baseUrl: 'http://localhost:4200',
     env: {
