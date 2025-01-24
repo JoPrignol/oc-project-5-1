@@ -4,14 +4,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Start the project
 
-Git clone:
-
-> git clone https://github.com/OpenClassrooms-Student-Center/P5-Full-Stack-testing
-
-Go inside folder:
-
-> cd yoga
-
 Install dependencies:
 
 > npm install
@@ -21,9 +13,37 @@ Launch Front-end:
 > npm run start;
 
 
-## Ressources
+## Tests
 
-### Mockoon env 
+### E2E tests
+
+Launching e2e test:
+
+> npm run e2e:ci
+
+Generate coverage report (you should launch e2e test before):
+
+> npm run e2e:coverage
+
+Report is available here:
+
+> front/coverage/lcov-report/index.html
+
+### Unitary tests
+
+Launching test:
+
+> npm run test
+
+for following change:
+
+> npm run test:watch
+
+for coverage:
+
+> npm test -- --coverage
+
+## Ressources
 
 ### Postman collection
 
@@ -34,30 +54,3 @@ For Postman import the collection
 by following the documentation: 
 
 https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman
-
-
-### Test
-
-#### E2E
-
-Launching e2e test:
-
-> npm run e2e
-
-Generate coverage report (you should launch e2e test before):
-
-> npm run e2e:coverage
-
-Report is available here:
-
-> front/coverage/lcov-report/index.html
-
-#### Unitary test
-
-Launching test:
-
-> npm run test
-
-for following change:
-
-> npm run test:watch
