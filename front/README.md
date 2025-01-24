@@ -36,15 +36,6 @@ by following the documentation:
 https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman
 
 
-### MySQL
-
-SQL script for creating the schema is available `ressources/sql/script.sql`
-
-By default the admin account is:
-- login: yoga@studio.com
-- password: test!1234
-
-
 ### Test
 
 #### E2E
