@@ -12,3 +12,13 @@ SQL script for creating the schema is available `ressources/sql/script.sql`
 By default the admin account is:
 - login: yoga@studio.com
 - password: test!1234
+
+### Start the project
+
+Git clone:
+
+> git clone https://github.com/OpenClassrooms-Student-Center/P5-Full-Stack-testing
+
+Go inside folder:
+
+> cd yoga
