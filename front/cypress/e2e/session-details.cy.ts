@@ -4,111 +4,6 @@ describe('Session details spec', () => {
     cy.visit('/login')
     cy.clearCookies();
 
-
-    // //*** MOCK POUR COVERAGE
-
-    //     // Interception des requêtes POST envoyées à /api/auth/login
-    //     cy.intercept('POST', '/api/auth/login', {
-    //       // Simulation de la réponse du serveur
-    //       body: {
-    //         email: 'yoga@studio.com',
-    //         firstName: 'admin',
-    //         lastName: 'ADMIN',
-    //         admin: true
-    //       },
-    //     }).as('login')
-
-    //     // Interception des requêtes GET envoyées à /api/session
-    //     cy.intercept(
-    //       {
-    //         method: 'GET',
-    //         url: '/api/session',
-    //       },
-    //       // Simulation d'une réponse vide
-    //       []).as('session')
-
-
-    //       cy.intercept('GET', '**/teacher', {
-    //         statusCode: 200,
-    //         body: [
-    //           {
-    //               "id": 1,
-    //               "lastName": "DELAHAYE",
-    //               "firstName": "Margot",
-    //               "createdAt": "2024-11-22T17:18:55",
-    //               "updatedAt": "2024-11-22T17:18:55"
-    //           },
-    //           {
-    //               "id": 2,
-    //               "lastName": "THIERCELIN",
-    //               "firstName": "Hélène",
-    //               "createdAt": "2024-11-22T17:18:55",
-    //               "updatedAt": "2024-11-22T17:18:55"
-    //           }
-    //         ]
-    //       }).as('getTeachers');
-
-    //       cy.intercept('GET', '/api/session', {
-    //         statusCode: 200,
-    //         body: [
-    //           {
-    //             id: 123,
-    //             name: 'Test Session',
-    //             date: '2024-12-27',
-    //             teacher: {
-    //               id: 1,
-    //               lastName: 'DELAHAYE',
-    //               firstName: 'Margot',
-    //             },
-    //             description: 'Test description test.',
-    //           },
-    //         ],
-    //       }).as('getSessions');
-
-    //       cy.intercept('POST', '/api/session', {
-    //         statusCode: 201, // 201 Created
-    //         body: {
-    //           id: 124,
-    //           name: 'Test Session',
-    //           date: '2024-12-27',
-    //           teacher: {
-    //             id: 1,
-    //             lastName: 'DELAHAYE',
-    //             firstName: 'Margot',
-    //           },
-    //           description: 'Test description test.',
-    //         },
-    //       }).as('createSession');
-
-    //       cy.intercept('GET', '**/session/123', {
-    //         statusCode: 200,
-    //         body: [
-    //           {
-    //             id: 123,
-    //             name: 'Test Session',
-    //             date: '2024-12-27',
-    //             teacher_id: 1,
-    //             description: 'Test description test.',
-    //           },
-    //         ],
-    //       }).as('getSession');
-
-    //       cy.intercept('GET', '**/teacher/1', {
-    //         statusCode: 200,
-    //         body:
-    //           {
-    //               "id": 1,
-    //               "lastName": "DELAHAYE",
-    //               "firstName": "Margot",
-    //               "createdAt": "2024-11-22T17:18:55",
-    //               "updatedAt": "2024-11-22T17:18:55"
-    //           }
-    //       }).as('getTeacher');
-
-
-
-    // //***
-
     cy.get('input[formControlName=email]').type("yoga@studio.com")
     cy.get('input[formControlName=password]').type(`${"test!1234"}{enter}{enter}`)
   });
@@ -166,11 +61,6 @@ describe('Session details spec', () => {
     // Modifier la session de test
     cy.get('[data-testid="edit-button"]').first().click();
 
-        // cy.url().should('include', '/sessions/update/123');
-        // cy.wait('@getSession');
-        // // cy.wait('@getTeacher');
-        // cy.get('input[formControlName="name"]').should('be.visible');
-
     // Nomer la session de test
     cy.get('input[formControlName="name"]').clear().type('Test Session Modified');
 
@@ -196,10 +86,6 @@ describe('Session details spec', () => {
 
     // Effacer la session test
     cy.url().should('include', '/sessions')
-
-    // // Vérifier que la session contient bien les bons détails
-    // cy.get('[data-testid="session-name"]').should('contain', 'Test Session');
-    // cy.get('[data-testid="session-description"]').should('contain', 'Test description test.');
 
     // Click sur le bouton de détail de la session
     cy.get('[data-testid="detail-button"]').first().click();

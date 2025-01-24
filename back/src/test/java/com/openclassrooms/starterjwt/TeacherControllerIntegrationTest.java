@@ -19,33 +19,6 @@ public class TeacherControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
-    // @Autowired
-    // private ObjectMapper objectMapper;
-
-    // @Autowired
-    // private JwtUtils jwtUtils;
-
-    // String token;
-
-    // @BeforeEach
-    // void setUp() {
-    //     // Créer un objet UserDetailsImpl avec les arguments requis par le constructeur
-    //     UserDetailsImpl userDetails = new UserDetailsImpl(
-    //             3L,
-    //             "testuser@test.com",
-    //             "Test",
-    //             "User",
-    //             true,
-    //             "password!1234"
-    //     );
-
-    //     // Créer un objet Authentication
-    //     Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
-    //     // Générer un token pour l'utilisateur fictif
-    //     token = jwtUtils.generateJwtToken(authentication);
-    // }
-
     @Test
     @WithMockUser(username = "testuser@test.com", roles = "USER")
     void findById_ShouldReturnTeacher_WhenTeacherExists() throws Exception {

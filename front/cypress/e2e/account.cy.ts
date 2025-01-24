@@ -3,45 +3,6 @@ describe('Account spec', () => {
   beforeEach(() => {
     cy.clearCookies();
 
-
-    // //*** MOCK POUR COVERAGE
-
-    //     // Interception des requêtes POST envoyées à /api/auth/login
-    //     cy.intercept('POST', '/api/auth/login', {
-    //       // Simulation de la réponse du serveur
-    //       body: {
-    //         email: 'yoga@studio.com',
-    //         firstName: 'admin',
-    //         lastName: 'ADMIN',
-    //         admin: true
-    //       },
-    //     }).as('login')
-
-    //     cy.intercept('GET', '/api/user/1', {
-    //       // Simulation de la réponse du serveur
-    //       body: {
-    //         "id": 1,
-    //         "email": "yoga@studio.com",
-    //         "lastName": "Admin",
-    //         "firstName": "Admin",
-    //         "admin": true,
-    //         "createdAt": "2024-11-22T17:18:55",
-    //         "updatedAt": "2024-11-22T17:18:55"
-    //     },
-    //     }).as('getUser')
-
-    //     // Interception des requêtes GET envoyées à /api/session
-    //     cy.intercept(
-    //       {
-    //         method: 'GET',
-    //         url: '/api/session',
-    //       },
-    //       // Simulation d'une réponse vide
-    //       []).as('session')
-
-
-    //       //***
-
     cy.visit('/login')
 
     cy.get('input[formControlName=email]').type("yoga@studio.com")
@@ -51,8 +12,6 @@ describe('Account spec', () => {
 
     // Visite de account
     cy.get('[data-testid="account-button"]').click();
-
-        // cy.wait('@getUser');
 
     cy.url().should('include', '/me')
 

@@ -63,25 +63,6 @@ public class UserControllerIntegrationTest {
             .andExpect(status().isUnauthorized());
     }
 
-    // @Test
-    // @WithMockUser(username = "test@user.com", roles = "USER")
-    // void deleteUser_ShouldDeleteUser_WhenUserIsThisUser() throws Exception {
-    //     // Ajouter un utilisateur dans la base
-    //     User user = new User();
-    //     user.setId(3L);
-    //     user.setEmail("test@user.com");
-    //     user.setFirstName("Test");
-    //     user.setLastName("User");
-    //     userRepository.saveAndFlush(user); // Force un flush pour assurer la persistance
-
-    //     // Effectuer la requête DELETE
-    //     mockMvc.perform(delete("/api/user/3"))
-    //           .andExpect(status().isOk());
-
-    //     // Vérifier que l'utilisateur est supprimé
-    //     assertFalse(userRepository.findById(3L).isPresent());
-    // }
-
     @Test
     @WithMockUser(username = "test@user.com", roles = "USER")
     void findById_ShouldThrowBadRequest_WhenIdIsNotValid() throws Exception {
