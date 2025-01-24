@@ -1,7 +1,14 @@
 # Yoga App !
 
+### DB 
 
-For launch and generate the jacoco code coverage:
+An H2 test DB is set for this project. This DB schema is available in src/test/resources/script.sql
+
+### Launch tests & code coverage
+
+To launch and generate the jacoco code coverage:
 > mvn clean test
 
-GL
+The code coverage will be available at /back/target/site/jacoco/index.html
+
+
