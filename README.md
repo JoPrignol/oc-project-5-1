@@ -1,4 +1,4 @@
-# YOGA
+# Yoga App !
 
 This project was made during my full stack developer training
 It focuses on tests and uses Jest, Cypress, and JUnit
