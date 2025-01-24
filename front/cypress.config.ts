@@ -16,6 +16,9 @@ export default defineConfig({
 
     },
     baseUrl: 'http://localhost:4200',
+    env: {
+      backendUrl: 'http://localhost:8080'
+    },
     defaultCommandTimeout: 15000,
     pageLoadTimeout: 60000,
   },
