@@ -17,7 +17,7 @@ export class FormComponent implements OnInit {
   public onUpdate: boolean = false;
   public sessionForm: FormGroup | undefined;
   public teachers$ = this.teacherService.all();
-  private id: string | undefined;
+  public id: string | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,8 +59,8 @@ export class FormComponent implements OnInit {
         .subscribe((_: Session) => this.exitPage('Session updated !'));
     }
   }
-
-  private initForm(session?: Session): void {
+  // passée en public pour le test (initialement en privée)
+  public initForm(session?: Session): void {
     this.sessionForm = this.fb.group({
       name: [
         session ? session.name : '',
@@ -92,4 +92,9 @@ export class FormComponent implements OnInit {
   public invokeExitPage(message:string): void {
     this.exitPage(message);
   }
+
+  // // Getter public pour accéder à la propriété 'ID' dans les tests
+  // public getId(): string | undefined {
+  //   return this.id;
+  // }
 }
