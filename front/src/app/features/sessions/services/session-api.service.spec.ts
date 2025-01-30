@@ -91,4 +91,18 @@ describe('SessionsService', () => {
     expect(req.request.body).toEqual(updatedTestSession);
     req.flush(updatedTestSession);
   });
+
+  it('should unparticipate to a session', () => {
+    const userId = '1';
+    const sessionId = '1';
+
+    service.unParticipate(sessionId, userId).subscribe(response => {
+      expect(response).toBeUndefined();
+    });
+
+    const req = httpMock.expectOne(`${pathService}/${sessionId}/participate/${userId}`);
+    expect(req.request.method).toBe('DELETE');
+
+    req.flush(null);
+  });
 });
