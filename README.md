@@ -22,3 +22,6 @@ Git clone:
 Go inside folder:
 
 > cd yoga
+
+
+Detailed README for each part are available in the back and front folders!
