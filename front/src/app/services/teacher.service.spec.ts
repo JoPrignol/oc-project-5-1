@@ -28,7 +28,7 @@ describe('TeacherService', () => {
   });
 
   it('should get teacher by id', (done) => {
-    // Arrange : Données mockées
+    // Données mockées
     const mockTeacher: Teacher = {
       id: 1,
       lastName: 'Test',
