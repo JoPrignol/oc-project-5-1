@@ -26,7 +26,7 @@ Install all required dependencies with:
 
 #### DB 
 
-An H2 test DB is set for this project. This DB schema is available in:
+An H2 test DB is set for the tests. This DB schema is available in:
 >src/test/resources/script.sql
 
 #### Run the app
@@ -37,7 +37,7 @@ Run the app with:
 
 ### Launch tests & code coverage
 
-To launch and generate the jacoco code coverage:
+To launch and generate the Jacoco code coverage:
 
 ``` mvn test ```
 
