@@ -1,18 +1,12 @@
 # Yoga App !
+![Static Badge](https://img.shields.io/badge/Java-1.8-green) ![Static Badge](https://img.shields.io/badge/Spring_Boot-2.6.1-green) ![Static Badge](https://img.shields.io/badge/MySQL-blue) ![Static Badge](https://img.shields.io/badge/H2-blue) ![Static Badge](https://img.shields.io/badge/Maven-orange) ![Static Badge](https://img.shields.io/badge/JUnit-purple) ![Static Badge](https://img.shields.io/badge/Jacoco-purple) 
+
+
+
 
 ### Overview
 
 This is the backend for the Yoga App, built with Spring Boot. It provides a REST API for the app.
-
-### Dependencies
-
-• Java Version: 1.8
-
-• Spring Boot Version: 2.6.1
-
-• DB: H2 (for tests), MySQL (for prod)
-
-• Jacoco (for code coverage)
 
 ### Installation & Setup
 
