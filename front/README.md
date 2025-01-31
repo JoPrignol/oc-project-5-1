@@ -1,16 +1,17 @@
 # Yoga
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
+![Static Badge](https://img.shields.io/badge/Angular_CLI-14.1.0-green) ![Static Badge](https://img.shields.io/badge/Cypress-purple) ![Static Badge](https://img.shields.io/badge/Jest-purple)
+
 
 ## Start the project
 
 Install dependencies:
 
-> npm install
+``` npm install ```
 
 Launch Front-end:
 
-> npm run start;
+``` npm run start ```
 
 
 ## Tests
@@ -19,11 +20,11 @@ Launch Front-end:
 
 Launching e2e test:
 
-> npm run e2e:ci
+``` npm run e2e:ci ```
 
 Generate coverage report (you should launch e2e test before):
 
-> npm run e2e:coverage
+``` npm run e2e:coverage ```
 
 Report is available here:
 
@@ -33,15 +34,15 @@ Report is available here:
 
 Launching test:
 
-> npm run test
+``` npm run test ```
 
 for following change:
 
-> npm run test:watch
+``` npm run test:watch ```
 
 for coverage:
 
-> npm test -- --coverage
+``` npm test -- --coverage ```
 
 ## Ressources
 
