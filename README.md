@@ -3,9 +3,7 @@
 ![Static Badge](https://img.shields.io/badge/Java-1.8-green) ![Static Badge](https://img.shields.io/badge/Spring_Boot-2.6.1-green) ![Static Badge](https://img.shields.io/badge/MySQL-blue) ![Static Badge](https://img.shields.io/badge/H2-blue) ![Static Badge](https://img.shields.io/badge/Maven-orange) ![Static Badge](https://img.shields.io/badge/JUnit-purple) ![Static Badge](https://img.shields.io/badge/Jacoco-purple) 
 
 This project was made during my full stack developer training
-It focuses on tests and uses Jest, Cypress, and JUnit
-
-Informations about frontend and backend tests are available in each folder's README. 
+It focuses on tests and uses Jest, Cypress, and JUnit 
 
 ### DB
 
